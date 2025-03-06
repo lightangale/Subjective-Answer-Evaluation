@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="..\static\style.css">
+</head>
+<body>
+     <!-- Header Section -->
+          <!-- Header Section -->
+          <header class="header">
+            <div class="logo">
+                <img src="..\static\images\logo.png" alt="Logo">
+        </div>
+        <nav id="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#about">About</a>
+            <a href="login.html" id="login-btn">Log in</a>
+            <a href="signup.html">Sign up</a>
+        </nav>
+        <nav id="user-links" style="display: none;">
+            <!-- <a href="history.html">History</a> -->
+            <a href="logout.html" id="logout-btn">Log out</a>
+        </nav>
+    </header>
+    
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Sign up</h2>
+            <form id="login-form" method="POST">
+                <div class="textbox">
+                    <input type="email" placeholder="Email" name="email" required>
+                </div>
+                <div class="textbox">
+                    <input type="password" placeholder="Password" name="password" required>
+                </div>
+                <div class="textbox">
+                    <input type="password" placeholder="Confirm password" name="confirm_password" required>
+                </div>
+                <button type="submit" class="btn" onclick="location.href='main.html'">Sign up</button>
+                <p class="signup-link">Already have an account? <a href="login.html">Log in</a></p>
+            </form>
+        </div>
+    </div>
+    
+    <section class="background">
+        <div class="background-blur"></div>
+    </section>
+
+    <script>
+        // Function to simulate login and change navigation links
+        function logIn() {
+            // Hide login/signup and show history/log out links
+            document.getElementById('nav-links').style.display = 'none'; // Hides login/signup links
+            document.getElementById('user-links').style.display = 'flex'; // Shows history/log out links
+        }
+
+        // Add event listener for form submission
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevents the form from submitting the default way
+            
+            // Simulate login and change navigation links
+            logIn();
+            
+            // After login, redirect to the main page
+            window.location.href = "main.html"; // Redirects to main.html after login
+        });
+        
+    function validatePasswords() {
+        var password = document.getElementsByName('password')[0].value;
+        var confirmPassword = document.getElementsByName('confirm_password')[0].value;
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return false; // Prevent form submission
+        }
+        return true; // Allow form submission
+    }
+
+    document.querySelector("form").addEventListener("submit", validatePasswords);
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Answer Evaluation</title>
+    <link rel="stylesheet" href="..\static\style.css">
+</head>
+<body>
+     <!-- Header Section -->
+          <!-- Header Section -->
+          <header class="header">
+            <div class="logo">
+                <img src="..\static\images\logo.png" alt="Logo">
+        </div>
+        <nav>
+            <a href="main.html">Home</a>
+            <!-- <a href="history.html">History</a> -->
+            <a href="theory.html">Theory</a>
+            <a href="math.html">Maths</a>
+            <a href="index.html">Log out</a>
+        </nav>
+    </header>
+    
+    <div class="input-section">
+        <form id="mathForm" onsubmit="submitMathAnswers(event)">
+            <div class="answer-wrapper">
+                <!-- Reference Answer Section -->
+                <div class="additional-info">
+                    <h2>Correct Equation</h2>
+                    <textarea id="correctEquation" name="correctEquation" placeholder="Enter the correct equation (e.g., 3x+8=7)" required></textarea>
+                </div>
+                
+                <!-- Candidate Answer Section -->
+                <div class="additional-info">
+                    <h2>Candidate Equation</h2>
+                    <textarea id="candidateEquation" name="candidateEquation" placeholder="Optional: Enter the candidate equation (e.g., 3x+7=9)"></textarea>
+                </div>
+                <div class="additional-info">
+                    <h2>Candidate Solution</h2>
+                    <textarea id="candidateSolution" name="candidateSolution" placeholder="Enter the solution candidate got (e.g., -1)" required></textarea>
+                </div>
+            </div>
+            
+            <!-- Submit Button -->
+            <button type="submit">Submit Answers</button>
+        </form>
+    </div>
+    
+    <section class="background">
+        <div class="background-blur"></div>
+    </section>
+
+    <script>
+    // Function to validate and handle form submission
+    function submitMathAnswers(event) {
+        event.preventDefault(); // Prevent default form submission behavior
+    
+        // Grab the values from the form
+        const correctEquation = document.getElementById('correctEquation').value.trim();
+        const candidateEquation = document.getElementById('candidateEquation').value.trim();
+        const candidateSolution = document.getElementById('candidateSolution').value.trim();
+    
+        // Validation for the equations and solution
+        if (!correctEquation) {
+            alert("Please provide the Correct Equation.");
+            return false;
+        }
+    
+        if (!candidateSolution) {
+            alert("Please provide the Candidate's Solution.");
+            return false;
+        }
+    
+        // Optional: Check if candidateEquation is empty and provide a fallback
+        if (candidateEquation === "") {
+            console.log("Candidate Equation is not provided.");
+            // Optionally, you could alert or handle this case
+        }
+    
+        // Prepare JSON data to send
+        const data = {
+            correctEquation,
+            candidateEquation,  // Will be an empty string if not filled
+            candidateSolution,
+        };
+    
+        // Send the data to the backend using fetch
+        fetch('http://localhost:8000/submit_math', {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)  // Send the data as JSON
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            window.location.href = 'result_math.html';  // Redirect to result page
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("An error occurred while submitting the form. Please try again later.");
+        });
+
+    }
+    
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Answer Evaluation</title>
+
+ 
+   <link rel="stylesheet" href="..\static\style.css">
+</head>
+<body>
+     <!-- Header Section -->
+          <!-- Header Section -->
+          <header class="header">
+            <div class="logo">
+                <img src="..\static\images\logo.png" alt="Logo">
+        </div>
+        <nav>
+            <a href="main.html">Home</a>
+            <!-- <a href="history.html">History</a> -->
+            <a href="theory.html">Theory</a>
+            <a href="math.html">Maths</a>
+            <a href="index.html">Log out</a>
+        </nav>
+    </header>
+    <div class="input-section">
+    <div class="answer-wrapper">
+        <h1>Evaluation Results</h1>
+        <div id="result-content">
+            <!-- Results will be populated dynamically -->
+        </div>
+        <!-- Submit Button -->
+         <div class="pre-next-button">
+            <button type="button" onclick="window.location.href='main.html'">Next</button>
+    </div>
+</div></div>
+<section class="background">
+    <div class="background-blur"></div>
+</section>
+    </div>
+    <script>
+        // Fetch results from the backend
+        fetch('http://localhost:8000/get_results', {
+  method: 'GET',
+  credentials: 'include'
+})
+.then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    const resultContent = document.getElementById('result-content');
+                    if (data.answers.length > 0) {
+                        const resultsHTML = data.answers.map((result, index) => `
+                        <div class="result-item">
+                            <h3>Candidate ${index + 1}</h3>
+                            <p><strong>Answer:</strong> ${result.candidate}</p>
+                            <p><strong>Score:</strong> ${result.score}</p>
+                            </div>
+                            `).join('');
+                            resultContent.innerHTML = resultsHTML;
+                        } else {
+                            resultContent.innerHTML = '<p>No results found.</p>';
+                        }
+                    } else {
+                        document.getElementById('result-content').innerHTML = '<p>Error fetching results.</p>';
+                    }
+                })
+                .then(data => {
+                    console.log(data); })
+            .catch(error => {
+                console.error('Error fetching results:', error);
+                document.getElementById('result-content').innerHTML = '<p>Error fetching results.</p>';
+            });
+    </script>
+</body>
+</html>

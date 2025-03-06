@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Answer Evaluation</title>
+    <link rel="stylesheet" href="..\static\style.css">
+</head>
+<body>
+     <!-- Header Section -->
+          <!-- Header Section -->
+          <header class="header">
+            <div class="logo">
+                <img src="..\static\images\logo.png" alt="Logo">
+        </div>
+        <nav>
+            <a href="main.html">Home</a>
+            <!-- <a href="history.html">History</a> -->
+            <a href="theory.html">Theory</a>
+            <a href="math.html">Maths</a>
+            <a href="index.html">Log out</a>
+        </nav>
+    </header>
+    <!-- action="/submit" method="POST" -->
+    <div class="input-section">
+        <form onsubmit="return validateAndSubmit(event)"  >
+        <div class="answer-wrapper">
+        <!-- Reference Answer Section -->
+        <div class="answer-box">
+            <h2>Reference Answer</h2>
+            <textarea placeholder="Enter reference answer here" name="referenceAnswer"></textarea>
+            <input type="file" class="file-upload" name="referenceFile">
+        </div>
+        <div class="additional-info">
+            <h2>Main Key</h2>
+            <textarea placeholder="Enter mainkeys here, separated by comma" name="mainKeys"></textarea>
+        </div>
+        <div class="additional-info">
+            <h2>Sub Key</h2>
+            <textarea placeholder="Enter subkeys here, separated by comma" name="subKeys"></textarea>
+        </div>
+        <div class="additional-info">
+            <h2>Names</h2>
+            <textarea placeholder="Enter names here, separated by comma" name="names"></textarea>
+        </div>
+        <div class="additional-info">
+            <h2>Shortform</h2>
+            <textarea placeholder="Enter shortforms here, separated by comma" name="shortforms"></textarea>
+        </div>
+        <!-- Candidate Answer Section -->
+        <div class="answer-box">
+            <h2 style="padding-top: 25px;">Candidate Answer</h2>
+            <textarea placeholder="Enter candidate answer here" name="candidateAnswer"></textarea>
+            <input type="file" id="candidate-file" class="file-upload"  name="candidateFile">
+        </div>
+    </div>
+        <!-- Submit Button -->
+        <button type="submit">Submit Answers</button>
+    </form>
+    </div>
+    
+    
+    
+    <section class="background">
+        <div class="background-blur"></div>
+    </section>
+    <script>
+        // Function to validate and handle form submission
+        function validateAndSubmit(event) {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            let referenceAnswer = document.querySelector('textarea[placeholder="Enter reference answer here"]').value.trim();  // Reference Answer (String)
+            let referenceFile = document.querySelector('input[type="file"].file-upload');  // File input for reference
+            let candidateAnswer = document.querySelector('textarea[placeholder="Enter candidate answer here"]').value.trim();  // Candidate Answer (String)
+            let candidateFile = document.querySelector('input[type="file"]#candidate-file');  // File input for candidate
+
+            // Validation for Reference Answer
+            if (!referenceAnswer && referenceFile.files.length === 0) {
+                alert("Please provide a reference answer or upload a reference file.");
+                return false;
+            }
+
+            // Validation for Candidate Answer
+            if (!candidateAnswer && candidateFile.files.length === 0) {
+                alert("Please provide a candidate answer or upload a candidate file.");
+                return false;
+            }
+
+            // Parsing the additional inputs
+            let mainKeys = document.querySelector('textarea[placeholder="Enter mainkeys here, separated by comma"]').value.split(',').map(item => item.trim());
+            let subKeys = document.querySelector('textarea[placeholder="Enter subkeys here, separated by comma"]').value.split(',').map(item => item.trim());
+            let names = document.querySelector('textarea[placeholder="Enter names here, separated by comma"]').value.split(',').map(item => item.trim());
+
+            // Parsing the shortforms (Dictionary)
+            let shortforms = document.querySelector('textarea[placeholder="Enter shortforms here, separated by comma"]').value.split(',').reduce((acc, item) => {
+                let [shortform, fullform] = item.split(':').map(e => e.trim());
+                if (shortform && fullform) {
+                    acc[shortform] = fullform;
+                }
+                return acc;
+            }, {});
+
+            let formData = new FormData();
+
+            // Add reference data
+            if (referenceFile.files.length > 0) {
+                formData.append('referenceFile', referenceFile.files[0]);
+            } else {
+                formData.append('referenceAnswer', referenceAnswer);
+            }
+
+            // Add candidate data
+            if (candidateFile.files.length > 0) {
+                formData.append('candidateFile', candidateFile.files[0]);
+            } else {
+                formData.append('candidateAnswer', candidateAnswer);
+            }
+
+            // Append other fields
+            formData.append('mainKeys', JSON.stringify(mainKeys));
+            formData.append('subKeys', JSON.stringify(subKeys));
+            formData.append('names', JSON.stringify(names));
+            formData.append('shortforms', JSON.stringify(shortforms));
+
+            // Sending data to backend using fetch
+            fetch('http://localhost:8000/submit_answers', {
+                method: 'POST',
+                body: formData,
+                credentials: 'include'
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                window.location.href = 'result.html';  // Redirect to result page
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("An error occurred while submitting the form. Please try again later.");
+            });
+        }
+    </script>
+</body>
+</html>
+            
+    <!-- <script>
+        function submitAnswers() {
+          // Add your answer submission logic here
+          console.log("Answers submitted");
+          // Example: Redirect to a result page after submitting
+          window.location.href = 'result.html';
+        }
+      </script> -->

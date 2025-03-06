@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Answer Evaluation</title>
+
+ 
+   <link rel="stylesheet" href="..\static\style.css">
+</head>
+<body>
+     <!-- Header Section -->
+          <!-- Header Section -->
+          <header class="header">
+            <div class="logo">
+                <img src="..\static\images\logo.png" alt="Logo">
+        </div>
+        <nav>
+            <a href="main.html">Home</a>
+            <!-- <a href="history.html">History</a> -->
+            <a href="theory.html">Theory</a>
+            <a href="math.html">Maths</a>
+            <a href="index.html">Log out</a>
+        </nav>
+    </header>
+</head>
+    <body>
+        <div class="input-section">
+            <div class="answer-wrapper">
+                <!-- The fetched results will appear here -->
+                <p id="result-text">Evaluation Results</p>
+                <div id="result-content"></div>
+            </div>
+            <div class="pre-next-button">
+                <button type="button" onclick="window.location.href='main.html'">Next</button>
+            </div>
+        </div>
+        <section class="background">
+            <div class="background-blur"></div>
+        </section>
+        <script>
+            // Fetch results from the backend
+            fetch('http://localhost:8000/get_results_from_math', {
+                method: 'GET',
+                credentials: 'include' // Include session cookies
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultText = document.getElementById('result-text');
+                const resultContent = document.getElementById('result-content');
+                
+                if (data.status === "success") {
+                    const results = data.results; // This should contain the result and feedback
+                    
+                    if (results.length > 0) {
+                        // Assuming results is an array containing a single result string
+                        resultText.innerHTML = results; // Display feedback
+                    } else {
+                        resultText.innerHTML = 'No results found.';
+                    }
+                } else {
+                    resultText.innerHTML = 'Error fetching results.';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching results:', error);
+                document.getElementById('result-text').innerHTML = 'Error fetching results.';
+            });
+        </script>
+    </body>
+    </html>

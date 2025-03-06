@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Answer Evaluation</title>
+    <link rel="stylesheet" href="..\static\main_style.css">
+</head>
+<body>
+     <!-- Header Section -->
+     <header class="header">
+        <div class="logo">
+            <img src="..\static\images\logo.png" alt="Logo">
+        </div>
+        <nav>
+            <a href="main.html">Home</a>
+            <a href="history.html">History</a>
+            <a href="theory.html">Theory</a>
+            <a href="math.html">Maths</a>
+            <a href="index.html">Log out</a>
+        </nav>
+    </header>
+    <div class="input-section">
+        <h1>History of Results</h1>
+        
+        <!-- Theory Answers Section -->
+        <div class="history-item">
+            <h2>Theory Answers:</h2>
+            <ul id="theory-answers-list">
+                <!-- Theory answers will be dynamically inserted here -->
+            </ul>
+        </div>
+        
+        <!-- Math Result Section -->
+        <div class="history-item">
+            <h2>Math Result:</h2>
+            <p id="math-result">
+                <!-- Math result will be dynamically inserted here -->
+            </p>
+        </div>
+        
+        <!-- Evaluate More Button -->
+        <div class="pre-next-button">
+            <button type="button" onclick="window.location.href='main.html'">Evaluate More Questions</button>
+        </div>
+    </div>
+
+    <section class="background">
+        <div class="background-blur"></div>
+    </section>
+
+    <script>
+        // Function to fetch data from the backend
+        async function fetchHistoryData() {
+            try {
+                const response = await fetch('/get_history_data');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch history data');
+                }
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error fetching history data:', error);
+                return null;
+            }
+        }
+    
+        // Function to populate the theory answers dynamically
+        function loadTheoryAnswers(theoryAnswers) {
+            const theoryAnswersList = document.getElementById('theory-answers-list');
+            theoryAnswers.forEach(answer => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${answer.candidate} - Score: ${answer.score}`;
+                theoryAnswersList.appendChild(listItem);
+            });
+        }
+    
+        // Function to display the math result
+        function loadMathResult(mathResult) {
+            const mathResultElement = document.getElementById('math-result');
+            mathResultElement.textContent = mathResult;
+        }
+    
+        // Load the results when the page is loaded
+        window.onload = async function () {
+            const data = await fetchHistoryData();
+            if (data) {
+                loadTheoryAnswers(data.theory_answers);
+                loadMathResult(data.math_result);
+            }
+        };
+    </script>
+    
+   
+</body>
+</html>

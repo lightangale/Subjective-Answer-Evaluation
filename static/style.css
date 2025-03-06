@@ -1,0 +1,401 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styles */
+body {
+    font-family: Arial, sans-serif;
+    color: #fff;
+    background-color: #4e3422;
+}
+
+/* Header Styles */
+.header {
+    position: sticky;
+    top: 0; /* Sticks to the top of the viewport */
+    z-index: 1000; 
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 50px;
+    background: rgba(48, 28, 16, 0.9); /* White with 85% opacity */
+    width: 100%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for contrast */
+}
+
+.header .logo img {
+    width: 50px; /* Adjust width as needed */
+    height: auto; /* Keeps aspect ratio */
+}
+
+
+.header nav a {
+    font-size:20px;
+    margin: 0 15px;
+    position: relative;
+    top: 10px; 
+    text-decoration: none;
+    color: #ababab;
+    font-weight: 500;
+}
+.header nav a:hover {
+    color: #ffffff; /* Changes text color on hover */
+    text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ff6600, 0 0 40px #ff6600; /* Adds glowing effect */
+}
+
+
+.header nav a:active {
+    color: #ffffff; /* Changes text color when link is active */
+    
+}
+
+
+/* Main Section Styling */
+.main {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+/* Background Section with Blurred Image */
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.background-blur {
+    width: 100%;
+    height: 100%;
+    background-image: url('../static/images/background2.webp'); /* Use the image URL here */
+    background-size: cover; /* Ensures the image covers the entire container */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Avoids repeating the image */
+    filter: blur(2px); /* Blur effect */
+}
+
+
+/* Text Overlay Styling */
+.text-overlay {
+    z-index: 1; /* Ensure it appears on top of the background */
+    color: #fff; /* White text for contrast */
+    padding: 20px;
+    position: relative;
+    top: -75px;  /* You can adjust this value */
+    
+}
+
+.text-overlay h1 {
+    font-size: 100px;
+    font-weight: bold;
+    text-shadow: 0 0 5px #e7bb9e, 0 0 10px #e7bb9e, 0 0 15px #e7bb9e, 0 0 20px #e7bb9e;
+   
+}
+
+.text-overlay p {
+    font-size: 20px;
+    margin-bottom: 30px;
+    color: #fff;
+    text-shadow: 0 0 5px #c7beb8, 0 0 10px #c7beb8;
+    
+}
+
+.text-overlay button {
+    background-color: rgb(60, 41, 22);
+    color: #cecece;
+    border: none;
+    padding: 10px 20px;
+    font-size: 25px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Shadow on button text */
+   
+}
+
+.text-overlay button:hover {
+    color: #ffffff; /* Changes text color on hover */
+    
+}
+
+.text-overlay button:active {
+    transform: scale(0.95); /* Shrinks the button to simulate pressing */
+    background-color:#2f1e11 ;
+    box-shadow: 0 0 10px #4e3422, 0 0 20px #4e3422; /* Adds a glowing effect when pressed */
+}
+
+
+
+
+
+/* About Section Styles */
+.about {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    padding-bottom: 10px;
+    
+}
+
+.about-box {
+    width: 80%;
+    max-width: 1200px;
+    background-color: #f9dfcb; /* White background for the about box */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.about-box h2 {
+    font-size: 2em;
+    color: #333;
+    
+    margin-bottom: 20px;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.feature-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    background-color:#fff;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.feature-content h3 {
+    font-size: 1.4em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.feature-content p {
+    font-size: 1em;
+    color: #666;
+    text-align: center;
+}
+
+.about-box p {
+    font-size: 1.1em;
+    color: #333;
+    line-height: 1.6;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.about-box::before {
+    content: "";
+    background-image: url('logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 80px; /* Height of the logo */
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Footer Styles */
+.footer {
+    background-color: #4e3422; /* Matches overall color scheme */
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-links a,
+.social-media a {
+    color: #ffcc80;
+    text-decoration: none;
+    margin: 5px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover,
+.social-media a:hover {
+    color: #ffffff;
+    text-shadow: 0 0 5px #ffffff, 0 0 10px #ff6600; /* Adds glow effect */
+}
+
+.social-media {
+    margin-top: 10px;
+}
+
+.social-media p {
+    font-size: 14px;
+   
+}
+
+/* ===================================LOG IN and SIGN UP================================================ */
+
+/* General page styling */
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Login box container */
+.login-box {
+    background-color: #fff;
+    margin-top:125px;
+    padding: 40px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    z-index: 999;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Textbox styling */
+.textbox {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.textbox input {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.textbox input:focus {
+    border-color: #4e3422;
+    outline: none;
+}
+
+/* Button styling */
+.btn {
+    background-color: #4e3422;
+    color: white;
+    padding: 12px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #3e2c1f;
+}
+
+/* Signup link styling */
+.signup-link {
+    margin-top: 10px;
+    font-size: 14px;
+    color:black;
+}
+
+.signup-link a {
+    color: #4e3422;
+    text-decoration: none;
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
+}
+
+
+/* =================================== MAIN.HTML =============================================== */
+#about-box-button{
+    background-color: #f8efe9;
+}
+
+.features_btn{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive grid */
+    gap:140px;
+    margin-bottom: 30px;
+    margin-top:30px;
+    padding:20px;
+    background-color: #f8efe9;
+}
+
+.feature_btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.feature_btn:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    background-color:#fff;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.feature-content h3 {
+    font-size: 1.4em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.feature-content p {
+    font-size: 1em;
+    color: #666;
+    text-align: center;
+}
+
+.feature-button {
+    background-color: transparent; /* Remove the white background */
+    color: black; 
+    border: none; 
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    box-shadow: none; 
+
+}
+
