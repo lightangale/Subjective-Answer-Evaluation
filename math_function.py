@@ -1,17 +1,20 @@
+'''
+THIS IS ONLY FOR REFERENCE AND IS NOT ACTUALLY USED IN CODE
+'''
 from sympy import symbols, Eq, solve
 
 def evaluate_candidate_equation(candidate_equation, candidate_solution, correct_equation, total_marks):
     try:
-        # Define the symbol(s) for solving equations
-        x = symbols('x')  # Extend for more variables if needed
+       
+        x = symbols('x') 
 
-        # Parse the candidate's equation
+        
         lhs, rhs = candidate_equation.split("=")
-        candidate_eq = Eq(eval(lhs), eval(rhs))  # Create a symbolic equation
+        candidate_eq = Eq(eval(lhs), eval(rhs))  
 
-        # Parse the correct equation
+       
         correct_lhs, correct_rhs = correct_equation.split("=")
-        correct_eq = Eq(eval(correct_lhs), eval(correct_rhs))  # Create a symbolic equation
+        correct_eq = Eq(eval(correct_lhs), eval(correct_rhs)) 
 
         # Solve the correct equation and extract a single solution (if it exists)
         solutions = solve(correct_eq, x)
@@ -43,9 +46,9 @@ def evaluate_candidate_equation(candidate_equation, candidate_solution, correct_
         return 0, feedback
 
 # Example usage
-# candidate_equation = "3*x + 7 = 4"  # Replace with actual user input
-# candidate_solution = "x = 0"        # Replace with actual user input
-# correct_equation = "3*x + 7 = 4"    # Correct equation for evaluation
+# candidate_equation = "3*x + 7 = 4"  
+# candidate_solution = "x = 0"        
+# correct_equation = "3*x + 7 = 4"    
 # total_marks = 5
 
 # marks_awarded, feedback = evaluate_candidate_equation(candidate_equation, candidate_solution, correct_equation, total_marks)
